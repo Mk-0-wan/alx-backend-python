@@ -1,2 +1,0 @@
-// inserting documents to a database collection
-db.school.insert({"name" : "Holberton school"})

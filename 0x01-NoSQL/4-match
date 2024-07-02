@@ -1,3 +1,0 @@
-// finding documents with the specified key value pair
-// arguments need to be a string
-db.school.find('name="Holberton school"')

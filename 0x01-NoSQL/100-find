@@ -1,2 +1,0 @@
-// finding all the docs that starts with the word Holberton
-db.school.find({"name": { "$regex": /^Holberton/ }})
