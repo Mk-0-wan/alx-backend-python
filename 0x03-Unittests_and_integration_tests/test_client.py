@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""some test"""
+"""some test for the client.py file"""
 import unittest
 from client import GithubOrgClient
-from unittest.mock import PropertyMock, patch
+from parameterized import parameterized, parameterized_class
+from unittest.mock import PropertyMock, patch, Mock
 from fixtures import (
         org_payload,
         repos_payload,
         expected_repos,
         apache2_repos
         )
-from parameterized import parameterized
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -81,10 +81,6 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_repos_url.assert_called_once()
             mock_get_json.assert_called_once_with(test_url)
 
-
-class TestGithubOrgClient(unittest.TestCase):
-    """Test case for GithubOrgClient"""
-
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False),
@@ -98,12 +94,12 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
 
-@parameterized_class([
-    {"org_payload": org_payload,
-     "repos_payload": repos_payload,
-     "expected_repos": expected_repos,
-     "apache2_repos": apache2_repos}
-])
+@parameterized_class([{
+    "org_payload": org_payload,
+    "repos_payload": repos_payload,
+    "expected_repos": expected_repos,
+    "apache2_repos": apache2_repos
+    }])
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Integration test case for GithubOrgClient.public_repos"""
 
