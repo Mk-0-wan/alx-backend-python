@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Simple test case for nested map"""
 from parameterized import parameterized
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 import unittest
 from unittest.mock import Mock, patch
 from utils import access_nested_map, get_json, memoize
@@ -17,7 +17,8 @@ class TestAccessNestedMap(unittest.TestCase):
     def test_access_nested_map(self,
                                nested_map: Dict[str, Any],
                                path: List[str],
-                               expected: Any) -> None:
+                               expected: Union[Dict[str, Any],
+                                               int]) -> None:
         """test case for the access nested map func"""
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
