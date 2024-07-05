@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-
 """Simple test case for nested map"""
+from parameterized import parameterized
 from typing import Any, Dict, List
 import unittest
 from unittest.mock import Mock, patch
 from utils import access_nested_map, get_json, memoize
-from parameterized import parameterized
 
 
 class TestAccessNestedMap(unittest.TestCase):
