@@ -81,13 +81,9 @@ class TestMemoize(unittest.TestCase):
                 ) as mock_method:
             instance = TestClass()
 
-            # Call a_property twice
             result1 = instance.a_property
             result2 = instance.a_property
 
-            # Check that a_method was called only once
-            mock_method.assert_called_once()
-
-            # Check that the results are correct
             self.assertEqual(result1, 42)
             self.assertEqual(result2, 42)
+            mock_method.assert_called_once()
