@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Simple test case for nested map"""
+from typing import Any, Dict, List
 import unittest
 from unittest.mock import Mock, patch
 from utils import access_nested_map, get_json, memoize
@@ -14,7 +15,10 @@ class TestAccessNestedMap(unittest.TestCase):
        ({"a": {"b": 2}}, ("a",), {"b": 2}),
        ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
-    def test_access_nested_map(self, nested_map, path, expected):
+    def test_access_nested_map(self,
+                               nested_map: Dict[str, Any],
+                               path: List[str],
+                               expected: Any) -> None:
         """test case for the access nested map func"""
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
@@ -22,7 +26,10 @@ class TestAccessNestedMap(unittest.TestCase):
         ({}, ("a",), KeyError),
         ({"a": 1}, ("a", "b"), KeyError)
         ])
-    def test_access_nested_map_exception(self, nested_map, path, err):
+    def test_access_nested_map_exception(self,
+                                         nested_map: Dict[str, Any],
+                                         path: List[str],
+                                         err: Any) -> None:
         """Handling all the key errors passed"""
         with self.assertRaises(err):
             access_nested_map(nested_map, path)
@@ -36,7 +43,10 @@ class TestGetJson(unittest.TestCase):
         ("http://holberton.io", {"payload": False}),
     ])
     @patch('requests.get')
-    def test_get_json(self, test_url, test_payload, mock_get):
+    def test_get_json(self,
+                      test_url: str,
+                      test_payload: Dict[str, bool],
+                      mock_get: object) -> None:
         """Test get_json returns the expected result"""
         mock_response = Mock()
         mock_response.json.return_value = test_payload
@@ -52,16 +62,17 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """test case for memoization method"""
-    def test_memoize(self):
+    def test_memoize(self) -> None:
         """method to test for the memoize wrapper method"""
         class TestClass:
-            "class test"
-            def a_method(self):
+            "class test for the memoize func"
+            def a_method(self) -> int:
+                """forgot to document"""
                 return 42
 
             @memoize
-            def a_property(self):
-                "tester"
+            def a_property(self) -> int:
+                "tester for the memoize func"
                 return self.a_method()
 
         with patch.object(
