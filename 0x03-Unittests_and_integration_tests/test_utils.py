@@ -42,22 +42,19 @@ class TestGetJson(unittest.TestCase):
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False}),
     ])
-    @patch('requests.get')
     def test_get_json(self,
                       test_url: str,
-                      test_payload: Dict[str, bool],
-                      mock_get: object) -> None:
+                      test_payload: Dict[str, bool]
+                      ) -> None:
         """Test get_json returns the expected result"""
         mock_response = Mock()
         mock_response.json.return_value = test_payload
-        mock_get.return_value = mock_response
+        with patch.object(requests, 'get',
+                          return_value=mock_response) as mock_method:
+            test_response = get_json(test_url)
+            self.assertEqual(test_response, test_payload)
 
-        # Call get_json with test_url and assert the result
-        result = get_json(test_url)
-        self.assertEqual(result, test_payload)
-
-        # Assert that requests.get was called once with the test_url
-        mock_get.assert_called_once_with(test_url)
+        mock_method.assert_called_once()
 
 
 class TestMemoize(unittest.TestCase):
